@@ -32,7 +32,7 @@ while (option != 9) {
             if (produtoEscolhido){
                 let compra = produtoEscolhido.valorDeCompra
                 let estoque = produtoEscolhido.QtdEmEstoque
-    
+
                 console.log("Total investido em estoque: " + compra * estoque);
             }
             break;
@@ -40,7 +40,12 @@ while (option != 9) {
             ListarProdutos()
             produtoEscolhido = buscarProduto()
 
-            console.log("Lucro obtido ao vender todo o estoque: ");
+            if (produtoEscolhido){
+                let compra = produtoEscolhido.valorDeCompra * produtoEscolhido.QtdEmEstoque
+                let venda = produtoEscolhido.valorDeVenda * (produtoEscolhido.QtdEmEstoque - produtoEscolhido.EstoqueMin)
+                console.log("Lucro obtido ao vender todo o estoque: " + (venda - compra));
+            }
+
             break;
         case 4:
             console.log("Cadastrar novo produto: ")
@@ -74,7 +79,7 @@ function ListarProdutos(){
 }
 
 function buscarProduto(): Produto | undefined {
-    let codigoProcurado: number = +teclado('Digite o código do produto:')
+    let codigoProcurado: number = +teclado('Digite o código do produto: ')
     for (let i=0;i<vetorProdutos.length;i++){
         if (vetorProdutos[i].codigo == codigoProcurado){
             return vetorProdutos[i]
