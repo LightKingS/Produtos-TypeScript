@@ -31,7 +31,7 @@ while (option != 9) {
             produtoEscolhido = buscarProduto()
             if (produtoEscolhido){
                 let compra = produtoEscolhido.valorDeCompra
-                let estoque = produtoEscolhido.QtdEmEstoque
+                let estoque = produtoEscolhido.quantidadeEmEstoque
 
                 console.log("Total investido em estoque: " + compra * estoque);
             }
@@ -40,12 +40,7 @@ while (option != 9) {
             ListarProdutos()
             produtoEscolhido = buscarProduto()
 
-            if (produtoEscolhido){
-                let compra = produtoEscolhido.valorDeCompra * produtoEscolhido.QtdEmEstoque
-                let venda = produtoEscolhido.valorDeVenda * (produtoEscolhido.QtdEmEstoque - produtoEscolhido.EstoqueMin)
-                console.log("Lucro obtido ao vender todo o estoque: " + (venda - compra));
-            }
-
+            console.log('Lucro obtido ao vender o estoque: ' + produtoEscolhido?.getLucro())
             break;
         case 4:
             console.log("Cadastrar novo produto: ")
@@ -64,10 +59,10 @@ function CriarProduto(){
     var nome = teclado("Nome: ")
     var valorDeCompra = +teclado("Valor de Compra: ")
     var valorDeVenda = +teclado("Valor de Venda: ")
-    var QtdEmEstoque = +teclado("Quantidade em Estoque: ")
-    var EstoqueMin = +teclado("Estoque Mínimo: ")
+    var quantidadeEmEstoque = +teclado("Quantidade em Estoque: ")
+    var estoqueMin = +teclado("Estoque Mínimo: ")
 
-    let produto: Produto = new Produto(codigo,nome,valorDeCompra,valorDeVenda,QtdEmEstoque,EstoqueMin)
+    let produto: Produto = new Produto(codigo,nome,valorDeCompra,valorDeVenda,quantidadeEmEstoque,estoqueMin)
     vetorProdutos.push(produto)
     console.log(vetorProdutos)
 }
