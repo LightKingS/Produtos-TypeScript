@@ -1,10 +1,11 @@
 import Produto from "./Produto"
 import prompt from "prompt-sync";
+import Mercado from "./Mercado"
 
 let option: number = 0
 let teclado = prompt();
 
-let vetorProdutos: Produto[] = [];
+let mercado: Mercado = new Mercado()
 
 while (option != 9) {
     console.log("+================ Produto ==================+");
@@ -20,41 +21,41 @@ while (option != 9) {
     
     switch (option) {
         case 1:
-            ListarProdutos()
-            let produtoEscolhido : Produto | undefined = buscarProduto()
+            console.log(mercado.listarProdutos())
+            let entrada = +teclado('Digite o código do produto: ')
+            let produtoEscolhido : Produto | undefined = mercado.buscarProduto(entrada)
 
             console.log("Valor de compra: " + produtoEscolhido?.valorDeCompra )
             console.log("Valor de venda: " + produtoEscolhido?.valorDeVenda )
             break;
         case 2:
-            ListarProdutos()
-            produtoEscolhido = buscarProduto()
+            console.log(mercado.listarProdutos())
+            entrada = +teclado('Digite o código do produto: ')
+            produtoEscolhido = mercado.buscarProduto(entrada)
             if (produtoEscolhido){
-                let compra = produtoEscolhido.valorDeCompra
-                let estoque = produtoEscolhido.quantidadeEmEstoque
-
-                console.log("Total investido em estoque: " + compra * estoque);
+                console.log("Total investido em estoque: " + produtoEscolhido.getInvestido());
             }
             break;
         case 3:
-            ListarProdutos()
-            produtoEscolhido = buscarProduto()
+            console.log(mercado.listarProdutos())
+            entrada = +teclado('Digite o código do produto: ')
+            produtoEscolhido = mercado.buscarProduto(entrada)
 
             console.log('Lucro obtido ao vender o estoque: ' + produtoEscolhido?.getLucro())
             break;
         case 4:
             console.log("Cadastrar novo produto: ")
-            CriarProduto()
+            criarProduto()
             break;
         case 5:
             console.log("Lista de produtos: ")
-            ListarProdutos()
+            console.log(mercado.listarProdutos())
         default:
         break;
     }
 }
 
-function CriarProduto(){
+function criarProduto(){
     var codigo = +teclado("codigo: ")
     var nome = teclado("Nome: ")
     var valorDeCompra = +teclado("Valor de Compra: ")
@@ -62,23 +63,6 @@ function CriarProduto(){
     var quantidadeEmEstoque = +teclado("Quantidade em Estoque: ")
     var estoqueMin = +teclado("Estoque Mínimo: ")
 
-    let produto: Produto = new Produto(codigo,nome,valorDeCompra,valorDeVenda,quantidadeEmEstoque,estoqueMin)
-    vetorProdutos.push(produto)
-    console.log(vetorProdutos)
-}
-
-function ListarProdutos(){
-    for (let i=0;i<vetorProdutos.length;i++){
-        console.log(vetorProdutos[i])
-    }
-}
-
-function buscarProduto(): Produto | undefined {
-    let codigoProcurado: number = +teclado('Digite o código do produto: ')
-    for (let i=0;i<vetorProdutos.length;i++){
-        if (vetorProdutos[i].codigo == codigoProcurado){
-            return vetorProdutos[i]
-        }
-
-    }
+    mercado.criarProduto(new Produto(codigo,nome,valorDeCompra,valorDeVenda,quantidadeEmEstoque,estoqueMin))
+    console.log()
 }
