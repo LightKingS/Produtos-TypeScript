@@ -1,14 +1,12 @@
 export default class Produto{
     constructor(
-        private _codigo: number,
-        private _nome: string,
-        private _valorDeCompra: number,
-        private _valorDeVenda: number,
-        private _quantidadeEmEstoque: number,
-        private _estoqueMin: number,
+        protected _codigo: number,
+        protected _nome: string,
+        protected _valorDeCompra: number,
+        protected _valorDeVenda: number,
+        protected _quantidadeEmEstoque: number,
+        protected _estoqueMin: number,
     ) {}
-
-    
 
     public get codigo() : number {
         return this._codigo;

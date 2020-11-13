@@ -1,3 +1,4 @@
+import { Perecivel } from "./Perecivel";
 import Produto from "./Produto";
 
 export default class Mercado{
@@ -27,5 +28,9 @@ export default class Mercado{
         } else {
             return this.produtos
         }
+    }
+
+    criarPerecivel(produto: Perecivel){
+        this.produtos.push(produto)
     }
 }

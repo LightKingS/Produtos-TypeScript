@@ -1,6 +1,7 @@
 import Produto from "./Produto"
 import prompt from "prompt-sync";
 import Mercado from "./Mercado"
+import { Perecivel } from "./Perecivel";
 
 let option: number = 0
 let teclado = prompt();
@@ -14,6 +15,7 @@ while (option != 9) {
     console.log("|3. Lucro obtido ao vender o estoque        |");
     console.log("|4. Cadastrar novo produto                  |");
     console.log("|5. Listar Produtos                         |");
+    console.log("|6. Cadastrar novo produto perecível        |");
     console.log("|9. Sair                                    |");
     console.log("+===========================================+");
     
@@ -50,6 +52,10 @@ while (option != 9) {
         case 5:
             console.log("Lista de produtos: ")
             console.log(mercado.listarProdutos())
+            break;
+        case 6:
+            console.log("Cadastrar novo perecivel: ")
+            criarCarne()
         default:
         break;
     }
@@ -64,5 +70,17 @@ function criarProduto(){
     var estoqueMin = +teclado("Estoque Mínimo: ")
 
     mercado.criarProduto(new Produto(codigo,nome,valorDeCompra,valorDeVenda,quantidadeEmEstoque,estoqueMin))
+    console.log()
+}
+function criarCarne(){
+    var codigo = +teclado("codigo: ")
+    var nome = teclado("Nome: ")
+    var valorDeCompra = +teclado("Valor de Compra: ")
+    var valorDeVenda = +teclado("Valor de Venda: ")
+    var quantidadeEmEstoque = +teclado("Quantidade em Estoque: ")
+    var estoqueMin = +teclado("Estoque Mínimo: ")
+    var dataValidade = +teclado("Quantos dias esse perecível irá demorar para estragar: ")
+
+    mercado.criarPerecivel(new Perecivel(codigo,nome,valorDeCompra,valorDeVenda,quantidadeEmEstoque,estoqueMin, dataValidade))
     console.log()
 }
